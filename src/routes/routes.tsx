@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, createHashRouter } from "react-router-dom";
 import { Layout } from "../components/Layout/Layout";
 import { Welcome } from "../pages/Welcome";
 import { useAppSelector } from "../store";
@@ -20,7 +20,7 @@ const routes = (isAuth: string | null) => {
 
 export const Provider = () => {
   const { accessToken } = useAppSelector((state) => state.auth);
-  const router = createBrowserRouter(routes(accessToken));
+  const router = createHashRouter(routes(accessToken));
 
   return <RouterProvider router={router} />;
 };

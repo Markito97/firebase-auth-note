@@ -5,6 +5,7 @@ import dns from "dns";
 dns.setDefaultResultOrder("verbatim");
 
 export default defineConfig({
+  base: "firebase-auth-note",
   plugins: [react()],
   server: {
     host: "localhost",
