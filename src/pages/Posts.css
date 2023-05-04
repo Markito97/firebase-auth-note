@@ -1,0 +1,27 @@
+.posts__wrapper {
+  padding: 16px;
+}
+
+.posts__controlls {
+  display: flex;
+  column-gap: 15px;
+}
+
+.posts {
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+
+.post__date {
+  color: gray;
+  font-size: 20px;
+}
+
+@media (max-width: 475px) {
+  .posts__controlls {
+    flex-direction: column;
+    row-gap: 30px;
+  }
+}

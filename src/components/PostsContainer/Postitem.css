@@ -1,0 +1,44 @@
+.post__wrapper {
+  display: flex;
+  padding: 16px;
+  border: 1px solid black;
+  border-radius: 10px;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 30px;
+}
+
+.post__title {
+  font-weight: bold;
+}
+
+.post__content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  text-overflow: ellipsis;
+}
+
+.post__description {
+}
+
+@media (max-width: 475px) {
+  .post__wrapper {
+    cursor: pointer;
+  }
+
+  .post__content {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .post__title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .post__description {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}

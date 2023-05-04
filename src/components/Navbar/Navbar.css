@@ -1,0 +1,13 @@
+.navbar {
+  padding: 16px;
+  min-height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Test";
+}
+
+.logo {
+  font-size: 36px;
+  font-weight: bold;
+}

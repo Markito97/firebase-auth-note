@@ -1,0 +1,5 @@
+.select__option {
+  white-space: nowrap;
+  padding: 8px;
+  cursor: pointer;
+}

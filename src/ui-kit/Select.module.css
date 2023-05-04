@@ -1,0 +1,23 @@
+.select__wrapper {
+  position: relative;
+  padding: 8px 24px;
+  width: 250px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.select__content {
+  position: absolute;
+  left: 0;
+  top: 41px;
+  width: 100%;
+  background: white;
+  z-index: 1000;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 475px) {
+  .select__wrapper {
+    width: 100%;
+  }
+}

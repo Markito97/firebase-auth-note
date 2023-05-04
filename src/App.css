@@ -1,0 +1,32 @@
+@font-face {
+  font-family: "Test";
+  src: url("./assets/fonts/7fonts.ru_rans____.ttf");
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  height: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+main {
+  height: 100%;
+}
+
+.btn {
+  padding: 8px 24px;
+  background: white;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: rgb(225, 225, 225);
+}

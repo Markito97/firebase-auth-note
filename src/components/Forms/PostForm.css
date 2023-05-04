@@ -1,0 +1,25 @@
+.postform__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 30px;
+  min-width: 500px;
+}
+
+.fields__wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+
+.description {
+  height: 300px;
+  padding: 8px 24px;
+  resize: none;
+}
+
+@media (max-width: 475px) {
+  .postform__wrapper {
+    min-width: 100%;
+  }
+}
