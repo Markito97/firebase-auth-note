@@ -6,11 +6,12 @@ import { fetchingPosts } from "../store/slices/postsSlice";
 import { PostsContainer } from "../components/PostsContainer/PostsContainer";
 import TextField from "../ui-kit/TextField";
 import { Select } from "../ui-kit/Select";
+import { FullScreenLoader } from "../components/FullScreenLoader/FullScreenLoader";
 import "./Posts.css";
 
 export const Posts = () => {
   const { id } = useAppSelector((state) => state.auth);
-  const { posts } = useAppSelector((state) => state.posts);
+  const { posts, isLoading } = useAppSelector((state) => state.posts);
   const [isOpen, setIsOpen] = useState(false);
   const [option, setOption] = useState<string>("default");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -38,23 +39,28 @@ export const Posts = () => {
     return sortedPosts.filter((post) => post.title.includes(searchQuery));
   }, [searchQuery, sortedPosts]);
 
+  if (isLoading) return <FullScreenLoader />;
   return (
     <div className="posts__wrapper">
       <div className="posts__controlls">
         <button className="btn" onClick={() => setIsOpen(true)}>
-          Создать пост
+          Create post
         </button>
-        <TextField
-          type="text"
-          placeholder="Поиск"
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
+        <div>
+          <TextField
+            type="text"
+            placeholder="Search"
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
         <Select
           onChange={handleChange}
-          defaultValue={"По умолчанию"}
+          defaultValue={"Default"}
           options={[
-            { value: "by_date", text: "По дате добавления" },
-            { value: "alphabet", text: "По алфавиту A-я" },
+            { value: "default", text: "Default" },
+            { value: "by_date", text: "By date added" },
+            { value: "alphabet", text: "A-z" },
           ]}
         />
       </div>
@@ -62,8 +68,7 @@ export const Posts = () => {
       <Modal open={isOpen} onClose={() => setIsOpen(false)}>
         <PostForm onClose={() => setIsOpen(false)} />
       </Modal>
-
-      {!posts.length && <h1>Заметок нет</h1>}
+      {!posts.length && <h1 className="posts__title">Empty...</h1>}
     </div>
   );
 };

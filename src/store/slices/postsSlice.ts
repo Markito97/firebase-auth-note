@@ -14,10 +14,16 @@ interface Post {
 
 interface PostStore {
   posts: Post[];
+  isLoading: boolean;
+  isSuccess: boolean;
+  isError: string;
 }
 
 const initialState: PostStore = {
   posts: [],
+  isLoading: false,
+  isSuccess: false,
+  isError: "",
 };
 
 export const postsSlice = createSlice({
@@ -25,10 +31,20 @@ export const postsSlice = createSlice({
   initialState,
   reducers: {
     handleCreate(state, action) {
-      createPost(action.payload);
+      // createPost(action.payload);
+      state.posts.push(action.payload);
     },
-    getPosts(state, action) {
+    getPostsLoading(state) {
+      state.isLoading = true;
+    },
+    getPostsSuccess(state, action) {
+      state.isLoading = false;
+      state.isSuccess = true;
       state.posts = action.payload;
+    },
+    getPostsError(state, action) {
+      state.isLoading = false;
+      state.isError = action.payload;
     },
     deletePost(state, action) {
       state.posts = state.posts.filter((post) => post.id !== action.payload);
@@ -37,22 +53,26 @@ export const postsSlice = createSlice({
   },
 });
 
-export const { handleCreate, getPosts, deletePost } = postsSlice.actions;
+export const { handleCreate, getPostsLoading, getPostsSuccess, getPostsError, deletePost } =
+  postsSlice.actions;
 
 export default postsSlice.reducer;
 
 export const fetchingPosts = async (dispatch: AppDispatch, id: string | null) => {
   try {
+    dispatch(getPostsLoading());
     const q = query(_collection, where("userId", "==", id));
     const querySnapshot = await getDocs(q);
-    dispatch(getPosts(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))));
-  } catch (error) {}
+    dispatch(getPostsSuccess(querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))));
+  } catch (error) {
+    dispatch(getPostsError(error.message));
+  }
 };
 
-const createPost = async (post: Post): Promise<void> => {
-  void (await addDoc(_collection, {
+export const createPost = async (post: Post): Promise<any> => {
+  return await addDoc(_collection, {
     ...post,
-  }));
+  });
 };
 
 const handleDeletePost = async (id: string) => {

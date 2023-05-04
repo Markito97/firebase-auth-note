@@ -1,9 +1,10 @@
 import { Controller, useForm } from "react-hook-form";
 import TextField from "../../ui-kit/TextField";
 import { useAppDispatch, useAppSelector } from "../../store";
-import { fetchingPosts, handleCreate } from "../../store/slices/postsSlice";
+import { createPost, fetchingPosts, handleCreate } from "../../store/slices/postsSlice";
 import "./PostForm.css";
 import { FC } from "react";
+import { getDoc } from "firebase/firestore";
 
 export const PostForm: FC<{ onClose: () => void }> = (props) => {
   const dispatch = useAppDispatch();
@@ -20,6 +21,7 @@ export const PostForm: FC<{ onClose: () => void }> = (props) => {
   const onSubmit = (data: any): void => {
     if (posts.length >= 5) return;
     props.onClose();
+    createPost({ ...data, userId: id, date: new Date().getTime() });
     void dispatch(handleCreate({ ...data, userId: id, date: new Date().getTime() }));
     fetchingPosts(dispatch, id);
   };
@@ -30,17 +32,17 @@ export const PostForm: FC<{ onClose: () => void }> = (props) => {
         <Controller
           name="title"
           control={control}
-          render={({ field }) => <TextField {...field} type="text" placeholder="Заголовок" />}
+          render={({ field }) => <TextField {...field} type="text" placeholder="Title" />}
         />
         <textarea
           {...register("description")}
           className="description"
-          placeholder="Описание"
+          placeholder="Description"
         ></textarea>
       </div>
 
       <button className="btn" onClick={handleSubmit(onSubmit)}>
-        Создать пост
+        Create post
       </button>
     </div>
   );

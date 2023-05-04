@@ -8,9 +8,7 @@ import { FullScreenLoader } from "./components/FullScreenLoader/FullScreenLoader
 
 function App() {
   const dispatch = useAppDispatch();
-  const { accessToken, id, isLoading } = useAppSelector((state) => state.auth);
-
-  console.log(id);
+  const { isLoading } = useAppSelector((state) => state.auth);
 
   useLayoutEffect(() => {
     dispatch(setCredentialsLoading(void 0));

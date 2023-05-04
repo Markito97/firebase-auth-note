@@ -19,6 +19,11 @@
   font-size: 20px;
 }
 
+.posts__title {
+  text-align: center;
+  font-family: "Test";
+}
+
 @media (max-width: 475px) {
   .posts__controlls {
     flex-direction: column;
